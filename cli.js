@@ -45,27 +45,26 @@ const questionsSet = [
   },
 ];
 
-inquirer.prompt(questionsStart).then(({ password, action }) => {
+async function main() {
+  const { password, action } = await inquirer.prompt(questionsStart);
+
   if (password === "123") {
     console.log("Password is right");
     if (action === "Get a password") {
-      inquirer.prompt(questionsGet).then(({ key }) => {
-        try {
-          const myPasswords = fs.readFileSync(`./password.json`, `utf8`);
-          let data = JSON.parse(myPasswords);
-          console.log(`Your ${key} password is ${data[key]}`);
-        } catch (error) {
-          console.error("Something went wrong");
-        }
-      });
+      const { key } = await inquirer.prompt(questionsGet);
+      try {
+        const myPasswords = fs.readFileSync(`./password.json`, `utf8`);
+        let data = JSON.parse(myPasswords);
+        console.log(`Your ${key} password is ${data[key]}`);
+      } catch (error) {
+        console.error("Something went wrong");
+      }
     } else if (action === "Set a password") {
-      inquirer
-        .prompt(questionsSet)
-        .then(({ key, password }) =>
-          console.log(`New Password: ${key} to ${password}`)
-        );
+      const { key, password } = await inquirer.prompt(questionsSet);
+      console.log(`New Password: ${key} to ${password}`);
     }
   } else {
     console.log("Master password is wrong");
   }
-});
+}
+main();
