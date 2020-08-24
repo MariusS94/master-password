@@ -31,7 +31,7 @@ const questionsGet = [
   },
 ];
 
-const qustionSet = [
+const questionsSet = [
   {
     type: "input",
     name: "key",
@@ -45,26 +45,24 @@ const qustionSet = [
   },
 ];
 
-inquirer.prompt(questionsStart).then((answers) => {
-  if (answers.password === "123") {
+inquirer.prompt(questionsStart).then(({ password, action }) => {
+  if (password === "123") {
     console.log("Password is right");
-    if (answers.action === "Get a password") {
-      inquirer.prompt(questionsGet).then((answers) => {
+    if (action === "Get a password") {
+      inquirer.prompt(questionsGet).then(({ key }) => {
         try {
           const myPasswords = fs.readFileSync(`./password.json`, `utf8`);
           let data = JSON.parse(myPasswords);
-          console.log(`Your ${answers.key} password is ${data[answers.key]}`);
+          console.log(`Your ${key} password is ${data[key]}`);
         } catch (error) {
           console.error("Something went wrong");
         }
       });
-    } else if (answers.action === "Set a password") {
+    } else if (action === "Set a password") {
       inquirer
-        .prompt(qustionSet)
-        .then((answersSet) =>
-          console.log(
-            `New Password: ${answersSet.key} to ${answersSet.password}`
-          )
+        .prompt(questionsSet)
+        .then(({ key, password }) =>
+          console.log(`New Password: ${key} to ${password}`)
         );
     }
   } else {
