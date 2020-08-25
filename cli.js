@@ -1,4 +1,4 @@
-const { readPassword } = require("./lib/readpassword");
+const { readPassword, writePassword } = require("./lib/password");
 const {
   askStartQuestion,
   askGetQuestions,
@@ -19,6 +19,7 @@ async function main() {
       }
     } else if (action === "Set a password") {
       const { key, password } = await askSetQuestion();
+      await writePassword(key, password);
       console.log(`New Password: ${key} to ${password}`);
     }
   } else {
