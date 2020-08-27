@@ -5,13 +5,17 @@
   "main": "cli.js",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "inquirer": "^7.3.3",
     "mongodb": "^3.6.0",
     "readline-sync": "^1.4.10"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nodemon": "^2.0.4",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
