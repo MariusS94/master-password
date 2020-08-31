@@ -1,12 +1,10 @@
 const express = require("express");
-const bodyParser = require("body-parser");
+
 const { readPassword, writePassword } = require("../lib/passwords");
 const { decrypt, encrypt } = require("../lib/crypto");
-const router = express.Router();
-
-/* router.use(bodyParser.json()); */
 
 function createPasswordsRouter(database, masterPassword) {
+  const router = express.Router();
   router.get("/:name", async (request, response) => {
     const { name } = request.params;
     const password = await readPassword(name, database);
@@ -24,4 +22,4 @@ function createPasswordsRouter(database, masterPassword) {
   return router;
 }
 
-exports.createPasswordsRouter = createPasswordsRouter;
+module.exports = createPasswordsRouter;
