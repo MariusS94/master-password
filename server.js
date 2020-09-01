@@ -10,7 +10,7 @@ const app = express();
 const createPasswordsRouter = require("./routes/password");
 const createUsersRouter = require("./routes/users");
 
-const port = 3000;
+const port = 3001;
 
 const client = new MongoClient(process.env.MONGO_URL, {
   useUnifiedTopology: true,
