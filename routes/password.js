@@ -19,6 +19,14 @@ function createPasswordsRouter(database, masterPassword) {
 
   router.post("/", async (request, response) => {
     const { name, value } = request.body;
+
+    const exstingPassword = await readPassword(name, database);
+
+    if (exstingPassword) {
+      response.status(402).send("Password already exists");
+      return;
+    }
+
     const encryptedPassword = encrypt(value, masterPassword);
     await writePassword(name, encryptedPassword, database);
     response.status(201).send("Password created");

@@ -18,10 +18,10 @@ function createUsersRouter(database) {
         return;
       }
       const token = jwt.sign({ email }, process.env.JWT_SECRET, {
-        expiresIn: "60s",
+        expiresIn: "360s",
       });
 
-      response.setHeader("Set-Cookie", `authToken=${token};path=/;Max-Age=60`);
+      response.setHeader("Set-Cookie", `authToken=${token};path=/;Max-Age=360`);
 
       response.send("Logged in");
     } catch (error) {
